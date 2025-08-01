@@ -3,6 +3,14 @@ window.addEventListener("beforeunload", function () {
   window.scrollTo(0, 0);
 });
 
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.querySelector(".loader-screen").style.display = "none";
+    document.getElementById("intro-screen").style.display = "flex";
+    // Optionally trigger your intro animation here
+  }, 4000); // adjust duration if needed
+});
+
 // Force scroll to top immediately
 if (history.scrollRestoration) {
   history.scrollRestoration = "manual";
@@ -43,11 +51,11 @@ const questionAnswerPairs = [
     answer: "Because she makes problems disappear... with a smile. 😄",
     button: "Teach me your ways!",
   },
-//   {
-//     question: "Why do I smile when HR walks in? 😊",
-//     answer: "Because if you’re around, the day already feels better.",
-//     button: "Okay... that was kinda sweet 😌",
-//   },
+  //   {
+  //     question: "Why do I smile when HR walks in? 😊",
+  //     answer: "Because if you’re around, the day already feels better.",
+  //     button: "Okay... that was kinda sweet 😌",
+  //   },
   {
     question: "Why do people smile when they see HR walking in? 😎",
     answer: "Because if HR looks calm, the day might just be okay. 😅",
@@ -63,7 +71,7 @@ const questionAnswerPairs = [
 // this will be added as a 1st question
 const firstQuestion = {
   question: "What kind of HR schedules their birthday on a Monday? 🎉",
-  answer: "The kind who turns the worst day of the week into the best one!",
+  answer: "The kind who turns the worst day of the week into the best one! 👩🏽",
   button: "Now that’s a flex 😄",
 };
 
@@ -86,9 +94,9 @@ function getRandomQuestions() {
 }
 
 const selectedQuestions = getRandomQuestions();
-// selectedQuestions.splice(0, 1, firstQuestion); // add first question
-// selectedQuestions.push(coffeeOne); // add coffee question
-// selectedQuestions.push(finalQuestion); // add final question
+selectedQuestions.splice(0, 1, firstQuestion); // add first question
+selectedQuestions.push(coffeeOne); // add coffee question
+selectedQuestions.push(finalQuestion); // add final question
 let questionIndex = 0;
 let isTyping = false;
 
@@ -254,11 +262,11 @@ async function showNextQuestion() {
     gsap.to(nextBtn, { opacity: 0, duration: 0.3 });
 
     // Type question first
-    await typeText(questionText, currentPair.question, 10);
+    await typeText(questionText, currentPair.question, 90);
 
     // Wait a bit, then append answer
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    await appendTypeText(questionText, "<br><br>" + currentPair.answer, 10);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await appendTypeText(questionText, "<br><br>" + currentPair.answer, 65);
 
     // Update button text and show it
     if (questionIndex < selectedQuestions.length - 1) {
@@ -293,7 +301,7 @@ async function showNextQuestion() {
           gsap.to(mainContent, { opacity: 1, duration: 1 });
         },
       });
-    }, 200);
+    }, 1200);
   }
 }
 
@@ -737,7 +745,9 @@ ScrollTrigger.create({
 mainContent.style.opacity = 0;
 
 // Start the first question
-showNextQuestion();
+setTimeout(() => {
+  showNextQuestion();
+}, 4200);
 
 nextBtn.addEventListener("click", (e) => {
   if (!isTyping) showNextQuestion();
