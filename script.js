@@ -68,7 +68,7 @@ const questionAnswerPairs = [
   },
   {
     question: "Why did the office start calling HR a magician? 🎩",
-    answer: "Because she makes problems disappear... with a smile. 😄",
+    answer: "Because she makes problems disappear... with a smile. 😀",
     button: "Teach me your ways!",
   },
   //   {
@@ -96,7 +96,7 @@ const firstQuestion = {
 };
 
 const coffeeOne = {
-  question: "What do HR and coffee have in common? 🫣",
+  question: "What do HR and Coffee have in common? 🫣",
   answer: "Both keep the team running but only one smiles while doing it. 😀",
   button: "Love that one ☕",
 };
