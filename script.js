@@ -6,7 +6,7 @@ const answerTypingSpeed = 65; // 65
 const gapBetweenQuesAndAns = 2000;
 const showNextQuestionAt = 2500;
 const revealMainPageAfter = 1500;
-const totalQuestionsExceptFixed = 4;
+const totalQuestionsExceptFixed = 5;
 
 // testing
 // const unwrappingTime = 400;
