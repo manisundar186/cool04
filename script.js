@@ -1,22 +1,22 @@
 // variables (times in ms)
-const unwrappingTime = 2000;
-const moveToQuestionsAreaAfter = 3500;
-const questionTypingSpeed = 90; // 90
-const answerTypingSpeed = 65; // 65
-const gapBetweenQuesAndAns = 2000;
-const showNextQuestionAt = 2500;
-const revealMainPageAfter = 1500;
-const totalQuestionsExceptFixed = 4;
+// const unwrappingTime = 2000;
+// const moveToQuestionsAreaAfter = 3500;
+// const questionTypingSpeed = 90; // 90
+// const answerTypingSpeed = 65; // 65
+// const gapBetweenQuesAndAns = 2000;
+// const showNextQuestionAt = 2500;
+// const revealMainPageAfter = 1500;
+// const totalQuestionsExceptFixed = 4;
 
 // testing
-// const unwrappingTime = 400;
-// const moveToQuestionsAreaAfter = 420;
-// const questionTypingSpeed = 10;
-// const answerTypingSpeed = 10;
-// const gapBetweenQuesAndAns = 200;
-// const showNextQuestionAt = 250;
-// const revealMainPageAfter = 200;
-// const totalQuestionsExceptFixed = 0;
+const unwrappingTime = 400;
+const moveToQuestionsAreaAfter = 420;
+const questionTypingSpeed = 10;
+const answerTypingSpeed = 10;
+const gapBetweenQuesAndAns = 200;
+const showNextQuestionAt = 250;
+const revealMainPageAfter = 200;
+const totalQuestionsExceptFixed = 0;
 
 // Ensure page starts at top on reload
 window.addEventListener("beforeunload", function () {
@@ -44,7 +44,7 @@ window.addEventListener("load", () => {
         // Step 3: Animate intro screen fade-in
         gsap.to(intro, {
           duration: 1.5,
-          delay: .5,
+          delay: 0.5,
           opacity: 1,
           ease: "power2.out",
         });
@@ -145,8 +145,8 @@ function getRandomQuestions() {
 
 const selectedQuestions = getRandomQuestions();
 selectedQuestions.splice(0, 1, firstQuestion); // add first question
-selectedQuestions.push(coffeeOne); // add coffee question
-selectedQuestions.push(finalQuestion); // add final question
+// selectedQuestions.push(coffeeOne); // add coffee question
+// selectedQuestions.push(finalQuestion); // add final question
 let questionIndex = 0;
 let isTyping = false;
 
@@ -455,10 +455,13 @@ const birthdayMessageChars = document.querySelectorAll(
 const footerTextChars = document.querySelectorAll(".footer-text .char");
 const signatureChars = document.querySelectorAll(".signature .char");
 
+const bonus01Chars = [];
 const bonus1Chars = [];
 const bonus2Chars = [];
+splitTextToChars(document.querySelector(".bonus-section-01 .birthday-message"));
 splitTextToChars(document.querySelector(".bonus-section-1 .birthday-message"));
 splitTextToChars(document.querySelector(".bonus-section-2 .birthday-message"));
+bonus01Chars.push(...document.querySelectorAll(".bonus-section-01 .char"));
 bonus1Chars.push(...document.querySelectorAll(".bonus-section-1 .char"));
 bonus2Chars.push(...document.querySelectorAll(".bonus-section-2 .char"));
 
@@ -598,7 +601,7 @@ ScrollTrigger.create({
 ScrollTrigger.create({
   trigger: "body",
   start: "20% top",
-  end: "28% top",
+  end: "25% top",
   onUpdate: (self) => {
     const progress = self.progress;
 
@@ -610,8 +613,8 @@ ScrollTrigger.create({
 // Birthday Section Fade-In (30-40%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "28% top",
-  end: "38% top",
+  start: "25% top",
+  end: "33% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".birthday-section", { opacity: progress });
@@ -629,19 +632,49 @@ ScrollTrigger.create({
 // Fade Out Birthday Section (40-45%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "38% top",
-  end: "46% top",
+  start: "33% top",
+  end: "38% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".birthday-section", { opacity: 1 - progress });
   },
 });
 
+// Bonus Section 01 Fade-In (45-55%)
+ScrollTrigger.create({
+  trigger: "body",
+  start: "38% top",
+  end: "48% top",
+  onUpdate: (self) => {
+    const progress = self.progress;
+    gsap.set(".bonus-section-01", { opacity: progress });
+    const charsToShow = Math.floor(progress * bonus01Chars.length);
+    bonus01Chars.forEach((char, index) => {
+      if (index < charsToShow) {
+        gsap.set(char, { opacity: 1, y: 0, rotateX: 0 });
+      } else {
+        gsap.set(char, { opacity: 0, y: 50, rotateX: -90 });
+      }
+    });
+  },
+});
+
+// Fade Out Bonus Section 01 (55–60%)
+ScrollTrigger.create({
+  trigger: "body",
+  start: "48% top",
+  end: "53% top",
+  onUpdate: (self) => {
+    const progress = self.progress;
+    gsap.set(".bonus-section-01", { opacity: 1 - progress });
+  },
+});
+
 // Bonus Section 1 Fade-In (45-55%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "46% top",
-  end: "56% top",
+  start: "53% top",
+  end: "65% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-1", { opacity: progress });
@@ -659,8 +692,8 @@ ScrollTrigger.create({
 // Fade Out Bonus Section 1 (55–60%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "56% top",
-  end: "64% top",
+  start: "65% top",
+  end: "70% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-1", { opacity: 1 - progress });
@@ -670,8 +703,8 @@ ScrollTrigger.create({
 // Bonus Section 2 Fade-In (60–70%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "64% top",
-  end: "74% top",
+  start: "70% top",
+  end: "78% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-2", { opacity: progress });
@@ -689,8 +722,8 @@ ScrollTrigger.create({
 // Fade Out Bonus Section 2 (70–75%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "74% top",
-  end: "80% top",
+  start: "78% top",
+  end: "83% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-2", { opacity: 1 - progress });
@@ -700,7 +733,7 @@ ScrollTrigger.create({
 // Footer Section (75–90%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "80% top",
+  start: "83% top",
   end: "90% top",
   onUpdate: (self) => {
     const progress = self.progress;
