@@ -299,9 +299,10 @@
      left: 50%;
      transform: translateX(-50%);
      color: rgba(255, 255, 255, 0.7);
-     font-size: 0.9rem;
+     font-size: 1.2rem;
      opacity: 1;
      transition: opacity 0.3s ease;
+     font-weight: bold;
  }
 
  html,
@@ -453,6 +454,47 @@
     opacity: 0.5;
   }
   50% {
+    opacity: 1;
+  }
+}
+
+
+.birthday-name-section {
+  text-align: center;
+  padding: 100px 20px;
+  /* background: #fff8fc; */
+  position: relative;
+}
+
+.gift-box {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: pop 1s ease-in-out forwards;
+}
+
+.birthday-name-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #d94a92;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+
+.birthday-name-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-100px);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
     opacity: 1;
   }
 }

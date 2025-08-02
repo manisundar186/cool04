@@ -1,3 +1,23 @@
+// variables (times in ms)
+const unwrappingTime = 4000;
+const moveToQuestionsAreaAfter = 4200;
+const questionTypingSpeed = 90; // 90
+const answerTypingSpeed = 65; // 65
+const gapBetweenQuesAndAns = 2000;
+const showNextQuestionAt = 2500;
+const revealLandingPageAfter = 2000;
+const totalQuestionsExceptFixed = 4;
+
+// testing
+// const unwrappingTime = 400;
+// const moveToQuestionsAreaAfter = 420;
+// const questionTypingSpeed = 10;
+// const answerTypingSpeed = 10;
+// const gapBetweenQuesAndAns = 200;
+// const showNextQuestionAt = 250;
+// const revealLandingPageAfter = 200;
+// const totalQuestionsExceptFixed = 1;
+
 // Ensure page starts at top on reload
 window.addEventListener("beforeunload", function () {
   window.scrollTo(0, 0);
@@ -8,7 +28,7 @@ window.addEventListener("load", () => {
     document.querySelector(".loader-screen").style.display = "none";
     document.getElementById("intro-screen").style.display = "flex";
     // Optionally trigger your intro animation here
-  }, 4000); // adjust duration if needed
+  }, unwrappingTime); // adjust duration if needed
 });
 
 // Force scroll to top immediately
@@ -84,13 +104,13 @@ const coffeeOne = {
 // this will be added as last to enter the main content
 const finalQuestion = {
   question: "Ready to blow the candles on your screen? 🕯️",
-  answer: "Time for the biggest surprise of all! 🎁",
+  answer: "Get ready for a little something special! 🎁",
 };
 
 // Select 3 random question-answer pairs
 function getRandomQuestions() {
   const shuffled = [...questionAnswerPairs].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, 1);
+  return shuffled.slice(0, totalQuestionsExceptFixed + 1);
 }
 
 const selectedQuestions = getRandomQuestions();
@@ -262,11 +282,11 @@ async function showNextQuestion() {
     gsap.to(nextBtn, { opacity: 0, duration: 0.3 });
 
     // Type question first
-    await typeText(questionText, currentPair.question, 90);
+    await typeText(questionText, currentPair.question, questionTypingSpeed);
 
     // Wait a bit, then append answer
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    await appendTypeText(questionText, "<br><br>" + currentPair.answer, 65);
+    await new Promise((resolve) => setTimeout(resolve, gapBetweenQuesAndAns));
+    await appendTypeText(questionText, "<br><br>" + currentPair.answer, answerTypingSpeed);
 
     // Update button text and show it
     if (questionIndex < selectedQuestions.length - 1) {
@@ -301,7 +321,7 @@ async function showNextQuestion() {
           gsap.to(mainContent, { opacity: 1, duration: 1 });
         },
       });
-    }, 1200);
+    }, revealLandingPageAfter);
   }
 }
 
@@ -544,7 +564,7 @@ ScrollTrigger.create({
 ScrollTrigger.create({
   trigger: "body",
   start: "20% top",
-  end: "30% top",
+  end: "28% top",
   onUpdate: (self) => {
     const progress = self.progress;
 
@@ -556,8 +576,8 @@ ScrollTrigger.create({
 // Birthday Section Fade-In (30-40%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "30% top",
-  end: "40% top",
+  start: "28% top",
+  end: "38% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".birthday-section", { opacity: progress });
@@ -575,8 +595,8 @@ ScrollTrigger.create({
 // Fade Out Birthday Section (40-45%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "40% top",
-  end: "45% top",
+  start: "38% top",
+  end: "46% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".birthday-section", { opacity: 1 - progress });
@@ -586,8 +606,8 @@ ScrollTrigger.create({
 // Bonus Section 1 Fade-In (45-55%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "45% top",
-  end: "55% top",
+  start: "46% top",
+  end: "56% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-1", { opacity: progress });
@@ -605,8 +625,8 @@ ScrollTrigger.create({
 // Fade Out Bonus Section 1 (55–60%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "55% top",
-  end: "60% top",
+  start: "56% top",
+  end: "64% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-1", { opacity: 1 - progress });
@@ -616,8 +636,8 @@ ScrollTrigger.create({
 // Bonus Section 2 Fade-In (60–70%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "60% top",
-  end: "70% top",
+  start: "64% top",
+  end: "74% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-2", { opacity: progress });
@@ -635,8 +655,8 @@ ScrollTrigger.create({
 // Fade Out Bonus Section 2 (70–75%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "70% top",
-  end: "75% top",
+  start: "74% top",
+  end: "80% top",
   onUpdate: (self) => {
     const progress = self.progress;
     gsap.set(".bonus-section-2", { opacity: 1 - progress });
@@ -646,7 +666,7 @@ ScrollTrigger.create({
 // Footer Section (75–90%)
 ScrollTrigger.create({
   trigger: "body",
-  start: "75% top",
+  start: "80% top",
   end: "90% top",
   onUpdate: (self) => {
     const progress = self.progress;
@@ -688,7 +708,7 @@ ScrollTrigger.create({
 // Final section: Complete experience (85-100% scroll)
 ScrollTrigger.create({
   trigger: "body",
-  start: "85% top",
+  start: "90% top",
   end: "bottom bottom",
   onUpdate: (self) => {
     // Keep footer visible
@@ -747,7 +767,23 @@ mainContent.style.opacity = 0;
 // Start the first question
 setTimeout(() => {
   showNextQuestion();
-}, 4200);
+}, moveToQuestionsAreaAfter);
+
+// specific section for Happy Birthday
+// Split each letter of Happy Birthday, Jeni! into spans
+// function splitNameText() {
+//   const textElem = document.querySelector(".birthday-name-text");
+//   const text = textElem.textContent;
+//   textElem.textContent = "";
+
+//   Array.from(text).forEach((char) => {
+//     const span = document.createElement("span");
+//     span.textContent = char === " " ? "\u00A0" : char;
+//     textElem.appendChild(span);
+//   });
+// }
+
+// splitNameText();
 
 nextBtn.addEventListener("click", (e) => {
   if (!isTyping) showNextQuestion();
