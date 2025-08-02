@@ -1,11 +1,11 @@
 // variables (times in ms)
-const unwrappingTime = 4000;
-const moveToQuestionsAreaAfter = 4200;
+const unwrappingTime = 2000;
+const moveToQuestionsAreaAfter = 3500;
 const questionTypingSpeed = 90; // 90
 const answerTypingSpeed = 65; // 65
 const gapBetweenQuesAndAns = 2000;
 const showNextQuestionAt = 2500;
-const revealLandingPageAfter = 2000;
+const revealMainPageAfter = 1500;
 const totalQuestionsExceptFixed = 4;
 
 // testing
@@ -15,8 +15,8 @@ const totalQuestionsExceptFixed = 4;
 // const answerTypingSpeed = 10;
 // const gapBetweenQuesAndAns = 200;
 // const showNextQuestionAt = 250;
-// const revealLandingPageAfter = 200;
-// const totalQuestionsExceptFixed = 1;
+// const revealMainPageAfter = 200;
+// const totalQuestionsExceptFixed = 0;
 
 // Ensure page starts at top on reload
 window.addEventListener("beforeunload", function () {
@@ -25,8 +25,38 @@ window.addEventListener("beforeunload", function () {
 
 window.addEventListener("load", () => {
   setTimeout(() => {
-    document.querySelector(".loader-screen").style.display = "none";
-    document.getElementById("intro-screen").style.display = "flex";
+    // document.querySelector(".loader-screen").style.display = "none";
+    // document.getElementById("intro-screen").style.display = "flex";
+
+    //#region Temp
+
+    // Step 1: Fade out loader opacity
+    gsap.to(".loader-screen", {
+      duration: 1,
+      opacity: 0,
+      ease: "power1.out",
+      onComplete: () => {
+        // Step 2: Show intro screen (still transparent)
+        const intro = document.getElementById("intro-screen");
+        intro.style.display = "flex";
+        intro.style.opacity = 0; // Ensure it's hidden
+
+        // Step 3: Animate intro screen fade-in
+        gsap.to(intro, {
+          duration: 1.5,
+          delay: .5,
+          opacity: 1,
+          ease: "power2.out",
+        });
+
+        // Step 4: Only hide loader *after* intro fade has begun
+        setTimeout(() => {
+          document.querySelector(".loader-screen").style.display = "none";
+        }, 500); // Wait a bit (optional, adjust to match animation timing)
+      },
+    });
+
+    //#endregion
     // Optionally trigger your intro animation here
   }, unwrappingTime); // adjust duration if needed
 });
@@ -286,7 +316,11 @@ async function showNextQuestion() {
 
     // Wait a bit, then append answer
     await new Promise((resolve) => setTimeout(resolve, gapBetweenQuesAndAns));
-    await appendTypeText(questionText, "<br><br>" + currentPair.answer, answerTypingSpeed);
+    await appendTypeText(
+      questionText,
+      "<br><br>" + currentPair.answer,
+      answerTypingSpeed
+    );
 
     // Update button text and show it
     if (questionIndex < selectedQuestions.length - 1) {
@@ -313,15 +347,15 @@ async function showNextQuestion() {
     setTimeout(() => {
       gsap.to("#intro-screen", {
         opacity: 0,
-        duration: 1,
+        duration: 1.2,
         onComplete: () => {
           introScreen.style.display = "none";
           document.body.classList.remove("intro-lock");
           document.documentElement.classList.remove("intro-lock"); // this is <html>
-          gsap.to(mainContent, { opacity: 1, duration: 1 });
+          gsap.to(mainContent, { opacity: 1, duration: 1.2 });
         },
       });
-    }, revealLandingPageAfter);
+    }, revealMainPageAfter);
   }
 }
 
@@ -768,22 +802,6 @@ mainContent.style.opacity = 0;
 setTimeout(() => {
   showNextQuestion();
 }, moveToQuestionsAreaAfter);
-
-// specific section for Happy Birthday
-// Split each letter of Happy Birthday, Jeni! into spans
-// function splitNameText() {
-//   const textElem = document.querySelector(".birthday-name-text");
-//   const text = textElem.textContent;
-//   textElem.textContent = "";
-
-//   Array.from(text).forEach((char) => {
-//     const span = document.createElement("span");
-//     span.textContent = char === " " ? "\u00A0" : char;
-//     textElem.appendChild(span);
-//   });
-// }
-
-// splitNameText();
 
 nextBtn.addEventListener("click", (e) => {
   if (!isTyping) showNextQuestion();
