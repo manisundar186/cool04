@@ -1,6 +1,6 @@
 // variables (times in ms)
-const unwrappingTime = 2000;
-const moveToQuestionsAreaAfter = 3500;
+const unwrappingTime = 4000;
+const moveToQuestionsAreaAfter = 5500;
 const questionTypingSpeed = 90; // 90
 const answerTypingSpeed = 65; // 65
 const gapBetweenQuesAndAns = 2000;

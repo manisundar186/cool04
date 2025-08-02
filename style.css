@@ -493,6 +493,28 @@
      display: inline-block;
  }
 
+ .loader-note {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #555;
+  text-align: center;
+  max-width: 80%;
+  animation: fadeInUp 1s ease-out .5s forwards;
+  opacity: 0;
+}
+
+/* Optional fade in animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 
  /* loading animation */
 
