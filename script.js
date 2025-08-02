@@ -1,22 +1,22 @@
 // variables (times in ms)
-const unwrappingTime = 4000;
-const moveToQuestionsAreaAfter = 4200;
-const questionTypingSpeed = 90; // 90
-const answerTypingSpeed = 65; // 65
-const gapBetweenQuesAndAns = 2000;
-const showNextQuestionAt = 2500;
-const revealLandingPageAfter = 2000;
-const totalQuestionsExceptFixed = 4;
+// const unwrappingTime = 4000;
+// const moveToQuestionsAreaAfter = 4200;
+// const questionTypingSpeed = 90; // 90
+// const answerTypingSpeed = 65; // 65
+// const gapBetweenQuesAndAns = 2000;
+// const showNextQuestionAt = 2500;
+// const revealLandingPageAfter = 2000;
+// const totalQuestionsExceptFixed = 4;
 
 // testing
-// const unwrappingTime = 400;
-// const moveToQuestionsAreaAfter = 420;
-// const questionTypingSpeed = 10;
-// const answerTypingSpeed = 10;
-// const gapBetweenQuesAndAns = 200;
-// const showNextQuestionAt = 250;
-// const revealLandingPageAfter = 200;
-// const totalQuestionsExceptFixed = 1;
+const unwrappingTime = 400;
+const moveToQuestionsAreaAfter = 420;
+const questionTypingSpeed = 10;
+const answerTypingSpeed = 10;
+const gapBetweenQuesAndAns = 200;
+const showNextQuestionAt = 250;
+const revealLandingPageAfter = 200;
+const totalQuestionsExceptFixed = 1;
 
 // Ensure page starts at top on reload
 window.addEventListener("beforeunload", function () {
