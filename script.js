@@ -6,7 +6,7 @@ const answerTypingSpeed = 65; // 65
 const gapBetweenQuesAndAns = 2000;
 const showNextQuestionAt = 2500;
 const revealMainPageAfter = 1500;
-const totalQuestionsExceptFixed = 5;
+const totalQuestionsExceptFixed = 4;
 
 // testing
 // const unwrappingTime = 400;
@@ -145,8 +145,8 @@ function getRandomQuestions() {
 
 const selectedQuestions = getRandomQuestions();
 selectedQuestions.splice(0, 1, firstQuestion); // add first question
-// selectedQuestions.push(coffeeOne); // add coffee question
-// selectedQuestions.push(finalQuestion); // add final question
+selectedQuestions.push(coffeeOne); // add coffee question
+selectedQuestions.push(finalQuestion); // add final question
 let questionIndex = 0;
 let isTyping = false;
 
