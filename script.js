@@ -120,7 +120,7 @@ const questionAnswerPairs = [
 
 // this will be added as a 1st question
 const firstQuestion = {
-  question: "What kind of HR schedules their birthday on a Monday? 🎉",
+  question: "What kind of HR has their birthday on a Monday? 🎉",
   answer: "The kind who turns the worst day of the week into the best one! 👩🏽",
   button: "Now that’s a flex 😄",
 };
